@@ -13,7 +13,13 @@ with open('torchrender/__init__.py', 'r') as f:
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-REQUIRES = []
+REQUIRES = [
+    'torch==1.0.1',
+    'numpy==1.16.1',
+    'opencv_python==3.4.5.20',
+    'setuptools==40.8.0',
+    'CVPubSubs==0.6.1',
+]
 
 setup(
     name='torchrender',
@@ -24,11 +30,11 @@ setup(
     author_email='josh.miklos@gmail.com',
     maintainer='SimLeek',
     maintainer_email='josh.miklos@gmail.com',
-    url='https://github.com/_/torchrender',
+    url='https://github.com/SimLeek/torchrender',
     license='MIT',
 
     keywords=[
-        '',
+        'pytorch', 'shaders'
     ],
 
     classifiers=[
