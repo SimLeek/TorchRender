@@ -7,8 +7,8 @@ python:
 #env:
 #  CIBW_BEFORE_BUILD="bash bash_installer.sh"
 
-install:
-- pip install -r requirements.txt -q
+#install:
+#- pip install -r requirements.txt -q
 #script:
 #- if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; then export CIBW_BUILD='cp35*'; fi
 #- if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then export CIBW_BUILD='cp36*'; fi
