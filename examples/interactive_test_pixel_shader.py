@@ -69,7 +69,9 @@ def conway(frame, coords, finished):
                         dead_array
                         )
     array = array.squeeze().permute(2, 1, 0)
-    frame[...] = array[...]
+    trans = np.zeros_like(coords)
+    trans[0, ...] = np.ones(trans.shape[1:])
+    frame[coords] = array[coords+trans]
 
 
 conway_shader = pixel_shader(conway)
