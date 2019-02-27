@@ -5,7 +5,7 @@ python:
 - '3.6'
 
 env:
-  CIBW_BEFORE_BUILD="bash bash_installer.sh
+  CIBW_BEFORE_BUILD="bash bash_installer.sh"
 
 install:
 - pip install -r requirements.txt -q
