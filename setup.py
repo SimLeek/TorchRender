@@ -14,7 +14,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 REQUIRES = [
-    'torch==1.0.1',
+    'torch',
     'numpy==1.16.1',
     'opencv_python==3.4.5.20',
     'setuptools==40.8.0',
