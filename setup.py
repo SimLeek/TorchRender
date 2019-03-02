@@ -14,11 +14,20 @@ with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 REQUIRES = [
-    'torch',
+    'torch>=1.0.1',
     'numpy==1.16.1',
     'opencv_python==3.4.5.20',
     'setuptools==40.8.0',
     'CVPubSubs==0.6.1',
+]
+
+DEPENDENCIES = [
+    "https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl",
+    "https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl",
+    "https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp37-cp37m-linux_x86_64.whl",
+    "https://download.pytorch.org/whl/cpu/torch-1.0.1-cp35-cp35m-win_amd64.whl",
+    "https://download.pytorch.org/whl/cpu/torch-1.0.1-cp36-cp36m-win_amd64.whl",
+    "https://download.pytorch.org/whl/cpu/torch-1.0.1-cp37-cp37m-win_amd64.whl"
 ]
 
 setup(
@@ -49,6 +58,7 @@ setup(
     ],
 
     install_requires=REQUIRES,
+    dependency_links=DEPENDENCIES,
     tests_require=['coverage', 'pytest'],
 
     packages=find_packages(),
