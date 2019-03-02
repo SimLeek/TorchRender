@@ -1,5 +1,9 @@
 language: python
 cache: pip
+
+env:
+  CIBW_SKIP='*-win32 *-manylinux1_i686'
+
 python:
 - '3.5'
 - '3.6'
