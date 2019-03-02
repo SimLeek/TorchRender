@@ -1,13 +1,9 @@
 language: python
 cache: pip
-
-env:
-  CIBW_SKIP='*-win32 *-manylinux1_i686'
-
+env: CIBW_SKIP='*-win32 *-manylinux1_i686'
 python:
 - '3.5'
 - '3.6'
-
 install:
 - pip install -r requirements.txt -q
 script:
@@ -15,10 +11,9 @@ script:
 - if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then export CIBW_BUILD='cp36*'; fi
 - pip install cibuildwheel==0.10.1
 - cibuildwheel --output-dir wheelhouse
-
 deploy:
   provider: pypi
   user: SimLeek
   skip_existing: true
   password:
-    secure: cM7WuD3r4Pl4n2pVH33GO/eVjO4E/7+QerW4WtFZ7F1C8HiBsCxiB7eKstErEjXgL7AoXIq8fL2zCGVA+a0ORXv/67/ho4j41uCdfITVVDxf6QKKahwnSAXoOux15gZMOtF5ky77h9siqD8mU2KCfwo2PzYpKF+sz1MQ8ibZFbYoeu1DR5CVQW8b1fGcAerBDv1fw74oamh7KrhKnRmBy6ooecEC+MV35cDRuGDXvXmV99VbLtsinNaUPVa1JXKVM3DxzXD0kjVJovauos7ALP5HdwLiPQj57r2jcbTAHOo74I2cAOeSKarco+LgGenyh/vDpo49Y+FyYJnAxZY4HtNOg7sekcIkULIj6t/db5VllcvE+Pn+n/ATzPYXxkvO9ossfBzWPSFlh6v39GtS+G92hkmTXT+VfsY3AAzke9QM16yljDo3sqb3kjzqtQfcslZ7JiIZTmzLD0zkcbdh7CmORboilJNKE2NgayRTI8zUJGqMMmvb2ZWIgJtSjeFUsuudjZyEeWNEYmHp3ypJsGW0thCLCgIS0XRdoKkH/azTkN2dgkxJh/DgXkXW4rQ2P3sMRIfWWi7oHjw+0jWWtILV6aE8I9lVgCMApjTPS9DWrMgwc0/Ojnuikg8dJMnVmTXXm0fMr9eyLaqjkTDkBVA9wDH4pynrbolUmHSc5BU=
+    secure: vOLh1J0bGmxl/8lumyfhgKpE8+n1H2wGn5lhxRIM0+s5Ha8z3paSmErs7bBqJf1VzsVVkB7bmLX8vgijih9F6HXhBK35l6nQLDm1Iu6vplK08++sbCHIkcoRIOUiWcnu5jeIPBeRVM+EOdWtYFdhY6Ok/+JYpcmimZGRye9fYiY9hVNXWzL90sfkQ8J++3pA5ZqzwtcSBnI4ATnxQLR029GybTSAnLr4rzzgjdR/9d5DNmINeqyHaS9HNREmmJVCxxrsDJbAHXn6TKc4cCQmSNCmrEvXMsBxbOcUTmKWD5OqL17UErvjWcS0Iwx52IYNa0StpZ+BLKPX+rmzmbMVwuNZJho3M/9N7datKq6gvV7L7pTLI5+3720L3SoVZmlBuPCAXc+EDT6Xv1paLSvsAvt480kVqKA0EnCyAB5tk0SB7W34uIr+l6BwRbO8KH21Ckp+tZuvqaZdwvfR79xxxi9kUfOyvOMfid6SbG8pwmmeMybw7TCc493sRLUWiWuXtYG0CSxNS6O365IFqJFM0hWAPqBrr4XDfk6FCPYtlI7J6I1lnJUdDHX2dETzAo1knuAuL20pv5JcT4roPbxounKskRGVfs7d2WX7xzlXOh77noMrjeAndYeBnovbPaXalnmnTqnleRFoXjSjFmYP7gTINaF4fl6ffIMoXSNx8Ec=
