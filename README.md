@@ -21,7 +21,7 @@ def conway(frame, coords, finished):
     frame[coords] = array[coords+trans]
 ```
 
-Here, we're adding 1 to a dimensions of 'coords' which is a tensor holding the locations of each pixel and color. This shifts the entire image by one pixel. If we did something more complicated based on the
+Here, we're adding 1 to a dimensions of 'coords' which is a tensor holding the locations of each pixel and color. This shifts the entire image by one pixel. If we did something more complicated based on the values of the coordinates, we could add more complicated shaders, like barrel distortions.
 
 ## Installation
 
