@@ -18,7 +18,7 @@ REQUIRES = [
     'numpy==1.16.1',
     'opencv_python==3.4.5.20',
     'setuptools==40.8.0',
-    'CVPubSubs==0.6.1',
+    'CVPubSubs==0.6.4',
 ]
 
 setup(
