@@ -78,7 +78,7 @@ class pixel_shader(object):  # NOSONAR
                 return
             if self.looping:
                 with self.frame_lock:
-                    tor_frame = torch.from_numpy(frame).to(self.device)
+                    tor_frame = torch.from_numpy(frame).to(self.device).float()
                     finished = display_function(tor_frame, (self.x, self.y, self.c), finished, *args, **kwargs)
                     frame[...] = tor_frame.cpu().numpy()[...]
             if finished:

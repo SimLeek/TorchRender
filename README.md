@@ -18,7 +18,7 @@ def conway(frame, coords, finished):
     
     trans = np.zeros_like(coords)
     trans[0, ...] = np.ones(trans.shape[1:])
-    frame[coords] = array[coords+trans]
+    frame[coords]git  = array[coords+trans]
 ```
 
 Here, we're adding 1 to a dimensions of 'coords' which is a tensor holding the locations of each pixel and color. This shifts the entire image by one pixel. If we did something more complicated based on the values of the coordinates, we could add more complicated shaders, like barrel distortions.
