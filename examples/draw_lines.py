@@ -23,7 +23,7 @@ def liney(frame, coords, finished):
     array = frame
     array = array.permute(2, 1, 0)[None, ...]
     global geom
-    doubs = coords[0].float(), coords[1].float(), coords[2].float()
+    doubs = coords[0].half(), coords[1].half(), coords[2].half()
     for g in geom:
         array = g(array, doubs[1], doubs[0], doubs[2])
     geom = []
