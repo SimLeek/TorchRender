@@ -1,12 +1,14 @@
 import torch
 from torch import functional as F
 import numpy as np
-from cvpubsubs.webcam_pub import VideoHandlerThread
-from cvpubsubs.input import mouse_loop
+from displayarray.frame.frame_updater import FrameUpdater
+from displayarray.input import mouse_loop
 import cv2
 from torchrender.pixel_shader import pixel_shader
 
-img = np.ones((240, 320, 3))
+width = 640
+height = 480
+img = np.ones((height, width, 3))
 
 
 def setup_conway_r(array):
@@ -69,9 +71,7 @@ def conway(frame, coords, finished):
                         dead_array
                         )
     array = array.squeeze().permute(2, 1, 0)
-    trans = np.zeros_like(coords)
-    trans[0, ...] = np.ones(trans.shape[1:])
-    frame[coords] = array[coords+trans]
+    frame[coords] = array[coords]
 
 
 conway_shader = pixel_shader(conway)
@@ -97,4 +97,4 @@ def conway_add(mouse_event  # type:MouseEvent
             pass
 
 
-VideoHandlerThread(video_source=img, callbacks=conway_shader).display()
+FrameUpdater(video_source=img, callbacks=conway_shader).display()

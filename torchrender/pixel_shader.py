@@ -13,14 +13,15 @@ class pixel_shader(object):  # NOSONAR
 
         >>> import random
         >>> import torch
-        >>> from cvpubsubs.webcam_pub import VideoHandlerThread
+        >>> from displayarray.frame.frame_updater import FrameUpdater
         >>> img = np.zeros((600, 800, 3))
         >>> def fun(array, coords, finished):
         ...     rgb = torch.empty(array.shape).uniform_(0,1).type(torch.DoubleTensor).to(array.device)/300.0
-        ...     trans = np.zeros_like(coords)
-        ...     trans[0,...] = np.ones(trans.shape[1:])
-        ...     array[coords] = (array[coords+trans] + rgb[coords])%1.0
-        >>> VideoHandlerThread(video_source=img, callbacks=pixel_shader(fun)).display()
+        ...     trans = torch.zeros(array.shape).to(array.device).type_as(coords[0])
+        ...     trans[0,...] = torch.ones(trans.shape[1:])
+        ...     # this should give an out of bounds error:
+        ...     array[coords] =(array[tuple(c+t for c,t in zip(coords,trans))] + rgb[coords])%1.0
+        >>> FrameUpdater(video_source=img, callbacks=pixel_shader(fun)).display()
 
         thanks: https://medium.com/@awildtaber/building-a-rendering-engine-in-tensorflow-262438b2e062
 
@@ -59,17 +60,11 @@ class pixel_shader(object):  # NOSONAR
 
             self.min_bounds = [0 for _ in frame.shape]
             self.max_bounds = list(frame.shape)
-            grid_slices = [slice(self.min_bounds[d], self.max_bounds[d]) for d in range(len(frame.shape))]
-            space_grid = np.mgrid[grid_slices]
-            space_grid.flags.writeable = False
-            x_tens = torch.LongTensor(space_grid[0, ...]).to(self.device)
-            y_tens = torch.LongTensor(space_grid[1, ...]).to(self.device)
-            c_tens = torch.LongTensor(space_grid[2, ...]).to(self.device)
-            self.x = Variable(x_tens, requires_grad=False)
-            self.y = Variable(y_tens, requires_grad=False)
-            self.c = Variable(c_tens, requires_grad=False)
+            grid_slices = [torch.arange(self.min_bounds[d], self.max_bounds[d]) for d in range(len(frame.shape))]
+            space_grid = torch.meshgrid(grid_slices)
+            self.x = space_grid
 
-        def _display_internal(self, frame, cam_id, *args, **kwargs):
+        def _display_internal(self, frame, *args, **kwargs):
             finished = True
             if self.first_call:
                 # return to display initial frame
@@ -79,7 +74,7 @@ class pixel_shader(object):  # NOSONAR
             if self.looping:
                 with self.frame_lock:
                     tor_frame = torch.from_numpy(frame).to(self.device)
-                    finished = display_function(tor_frame, (self.x, self.y, self.c), finished, *args, **kwargs)
+                    finished = display_function(tor_frame, self.x, finished, *args, **kwargs)
                     frame[...] = tor_frame.cpu().numpy()[...]
             if finished:
                 self.looping = False

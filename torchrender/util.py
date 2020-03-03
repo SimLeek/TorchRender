@@ -1,5 +1,5 @@
-from cvpubsubs.window_sub.winctrl import WinCtrl
+from displayarray.window.window_commands import quit
 
 
 def quit_window():
-    WinCtrl.quit()
+    quit()
