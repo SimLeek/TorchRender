@@ -63,6 +63,7 @@ class pixel_shader(object):  # NOSONAR
             grid_slices = [torch.arange(self.min_bounds[d], self.max_bounds[d]) for d in range(len(frame.shape))]
             space_grid = torch.meshgrid(grid_slices)
             self.x = space_grid
+            self.x = list(self.x)
 
         def _display_internal(self, frame, *args, **kwargs):
             finished = True
@@ -70,10 +71,14 @@ class pixel_shader(object):  # NOSONAR
                 # return to display initial frame
                 _setup(self, frame, finished, *args, **kwargs)
                 self.first_call = False
-                return
             if self.looping:
                 with self.frame_lock:
                     tor_frame = torch.from_numpy(frame).to(self.device)
+                    tor_frame = tor_frame.half()
+
+                    if self.x[0].device != tor_frame.device:
+                        self.x[0] = self.x[0].to(device=tor_frame.device)
+                        self.x[1] = self.x[1].to(device=tor_frame.device)
                     finished = display_function(tor_frame, self.x, finished, *args, **kwargs)
                     frame[...] = tor_frame.cpu().numpy()[...]
             if finished:
