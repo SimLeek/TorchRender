@@ -8,7 +8,7 @@ with open('torchrender/__init__.py', 'r') as f:
             version = line.strip().split('=')[1].strip(' \'"')
             break
     else:
-        version = '0.0.1'
+        version = '0.0.3'
 
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
@@ -19,6 +19,7 @@ REQUIRES = [
     'opencv_python>=3.4.5.20',
     'setuptools>=40.8.0',
     'CVPubSubs>=0.6.4',
+    'displayarray>=0.7.2'
 ]
 
 setup(
